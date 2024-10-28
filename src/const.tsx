@@ -1,1 +1,1 @@
-export const initialStateForm = {};
+export const initialStateForm: Record<string, string | number | string[]> = {};
