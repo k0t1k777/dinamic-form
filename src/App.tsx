@@ -1,5 +1,6 @@
 import './App.css'
 import { Field, Form } from './form/form';
+import { House, Select } from './select/selects';
 export type Form = Field[];
 
 function App() {
@@ -45,9 +46,42 @@ function App() {
     },
   ]
 
+  const houses: House[] = [
+    {
+      id: 1,
+      name: 'Дом 1',
+      entrances: [
+        { id: 1, floors: 5, apartmentsPerFloor: 6 },
+        { id: 2, floors: 2, apartmentsPerFloor: 2 },
+      ]
+    },
+    {
+      id: 2,
+      name: 'Дом 2',
+      entrances: [
+        { id: 1, floors: 7, apartmentsPerFloor: 2 },
+        { id: 2, floors: 2, apartmentsPerFloor: 6 },
+        { id: 3, floors: 3, apartmentsPerFloor: 4 },
+        { id: 4, floors: 4, apartmentsPerFloor: 7 },
+        { id: 5, floors: 5, apartmentsPerFloor: 3 },
+      ],
+    },
+    {
+      id: 3,
+      name: 'Дом 3',
+      entrances: [
+        { id: 1, floors: 6, apartmentsPerFloor: 8 },
+        { id: 2, floors: 2, apartmentsPerFloor: 7 },
+        { id: 3, floors: 3, apartmentsPerFloor: 5 },
+        { id: 4, floors: 4, apartmentsPerFloor: 4 },
+      ],
+    },
+  ];
+
   return (
     <>
       <Form form={form}/>
+      <Select houses={houses}/>
     </>
   )
 }

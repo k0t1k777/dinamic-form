@@ -14,7 +14,6 @@ const initialState: StateType = {
   localStore: initialStateForm,
 };
 
-
 const formSlice = createSlice({
   name: 'form',
   initialState,

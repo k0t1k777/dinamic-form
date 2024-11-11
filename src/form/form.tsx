@@ -25,7 +25,6 @@ export const Form: React.FC<FormProps> = ({ form }) => {
   const [showFields, setShowFields] = useState(false);
   const dispatch = useAppDispatch();
   const { localStore } = useAppSelector(selectForm);
-  console.log(localStore)
   const handleChange = (fieldName: string, value: any) => {
     const newLocalStore = {
       ...localStore,
