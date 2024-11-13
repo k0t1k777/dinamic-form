@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { selectForm, setLocalStore } from '../../store/features/slice/formReducer';
 import { initialStateForm } from '../../const';
+import { Button } from '../../ui/Button/Button';
 
 interface Option {
   title: string;
@@ -135,9 +136,9 @@ export const Form: React.FC<FormProps> = ({ form }) => {
           display: 'flex',
           gap: '15px',
         }}>
-          <button type="submit">Сохранить</button>
-          <button type="button" onClick={handleReset}>Сбросить</button>
-        </div>
+          <Button text={'Сохранить'} type="submit"/>
+          <Button text={'Сбросить'} type="button" onClick={handleReset}/>
+         </div>
       </form>}
     </>
   );

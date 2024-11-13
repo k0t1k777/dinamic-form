@@ -9,9 +9,9 @@ interface SelectProps {
 
 export const SelectComponent: React.FC<SelectProps> = ({ title, data, value, onChange }) => {
   return (
-    <div style={{ width: '200px' }}>
+    <div style={{ width: '150px' }}>
       <label htmlFor="data">{title}</label>
-      <select id="data" value={value} onChange={onChange}>
+      <select id="data" value={value} onChange={onChange} style={{ width: '100%' }}>
         <option value="">{title}</option>
         {data.map(item => (
           <option key={item.id} value={item.id}>

@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { SelectComponent } from "../../ui/SelectComonent/Houses";
+import { SelectComponent } from "../../ui/SelectComonent/SelectComponent";
+import { Button } from "../../ui/Button/Button";
 
 interface SelectProps {
   houses: House[];
@@ -20,7 +21,13 @@ export interface House {
 export interface Floors {
   id: number;
   label?: string;
-  apartmentsPerFloor: number;
+  flats: number;
+}
+
+enum HouseLevel {
+  House = "house",
+  Entrance = "entrance",
+  Floor = "floor",
 }
 
 export const Houses: React.FC<SelectProps> = ({ houses }) => {
@@ -29,25 +36,29 @@ export const Houses: React.FC<SelectProps> = ({ houses }) => {
   const [selectedEntrance, setSelectedEntrance] = useState('');
   const [selectedFloor, setSelectedFloor] = useState('');
 
-  const handleHouseChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedHouse(event.target.value);
-    setSelectedEntrance('');
-    setSelectedFloor('');
-  };
-
-  const handleEntranceChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedEntrance(event.target.value);
-    setSelectedFloor('');
-  };
-
-  const handleFloorChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedFloor(event.target.value);
-  };
-
   const house = houses.find(item => item.id === Number(selectedHouse));
   const entrances = house?.entrances || [];
   const entrance = entrances.find(item => item.id === Number(selectedEntrance));
   const floors = entrance?.floors || [];
+  const countFlats = entrance?.floors.find((floor) => floor.id === Number(selectedFloor))?.flats
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    console.log('Сохраненные данные:',  `${countFlats} квартир`);
+  };
+
+  const resetSelections = (level: HouseLevel | 'all') => {
+    if (level === "all") {
+      setSelectedHouse("");
+      setSelectedEntrance("");
+      setSelectedFloor("");
+    } else if (level === HouseLevel.House) {
+      setSelectedEntrance("");
+      setSelectedFloor("");
+    } else if (level === HouseLevel.Entrance) {
+      setSelectedFloor("");
+    }
+  };
 
   return (
     <>
@@ -55,23 +66,29 @@ export const Houses: React.FC<SelectProps> = ({ houses }) => {
         {showFields ? 'Скрыть силект' : 'Показать силект'}
       </button>
       {showFields && (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <form style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} onSubmit={handleSubmit}>
           <h1>Кросс силект</h1>
-          <SelectComponent title={'Выберите дом'} data={houses} value={selectedHouse} onChange={handleHouseChange} />
+          <SelectComponent title={'Выберите дом'} data={houses} value={selectedHouse} onChange={(e) => {
+            setSelectedHouse(e.target.value); resetSelections(HouseLevel.House);
+          }} />
           {selectedHouse && (
-            <SelectComponent title={'Выберите подъезд'} data={entrances} value={selectedEntrance} onChange={handleEntranceChange} />
+            <SelectComponent title={'Выберите подъезд'} data={entrances} value={selectedEntrance} onChange={(e) => {
+              setSelectedEntrance(e.target.value); resetSelections(HouseLevel.Entrance);
+            }} />
           )}
           {selectedEntrance && entrance && (
-            <SelectComponent title={'Выберите этаж'} data={floors} value={selectedFloor} onChange={handleFloorChange} />
+            <SelectComponent title={'Выберите этаж'} data={floors} value={selectedFloor} onChange={(e) => {
+              setSelectedFloor(e.target.value);
+            }} />
           )}
           {selectedFloor && entrance && (
-            <div>
-              <p>
-                Квартир на этаже: {entrance.floors.find((floor) => floor.id === Number(selectedFloor))?.apartmentsPerFloor}
-              </p>
-            </div>
+            <div><p>Квартир на этаже: {countFlats}</p></div>
           )}
-        </div>
+          <div style={{ margin: '50px auto', display: 'flex', gap: '15px' }}>
+            <Button text={'Сохранить'} type="submit" />
+            <Button text={'Сбросить'} type="button" onClick={() => resetSelections('all')} />
+          </div>
+        </form >
       )}
     </>
   );

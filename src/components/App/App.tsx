@@ -53,35 +53,33 @@ function App() {
       entrances: [
         {
           id: 1,
+          label: 'Подъезд 1',
           floors: [
             {
               id: 1,
-              apartmentsPerFloor: 3
+              flats: 3
             },
             {
               id: 2,
-              apartmentsPerFloor: 4
+              flats: 4
             },
             {
               id: 3,
-              apartmentsPerFloor: 5
+              flats: 5
             },
             {
               id: 4,
-              apartmentsPerFloor: 9
+              flats: 9
             }
           ]
         },
         {
           id: 2,
+          label: 'Подъезд 2',
           floors: [
             {
               id: 1,
-              apartmentsPerFloor: 6
-            },
-            {
-              id: 2,
-              apartmentsPerFloor: 7
+              flats: 7
             },
           ]
         },
@@ -93,44 +91,43 @@ function App() {
       entrances: [
         {
           id: 1,
+          label: 'Подъезд 1',
           floors: [
             {
               id: 1,
-              apartmentsPerFloor: 1
+              flats: 1
             },
             {
               id: 2,
-              apartmentsPerFloor: 6
+              flats: 6
             },
             {
               id: 3,
-              apartmentsPerFloor: 8
+              flats: 8
             }
           ]
         },
         {
           id: 2,
+          label: 'Подъезд 2',
           floors: [
             {
               id: 1,
-              apartmentsPerFloor: 6
+              flats: 2
             },
             {
               id: 2,
-              apartmentsPerFloor: 2
-            },
-            {
-              id: 3,
-              apartmentsPerFloor: 3
+              flats: 3
             }
           ]
         },
         {
           id: 3,
+          label: 'Подъезд 3',
           floors: [
             {
               id: 1,
-              apartmentsPerFloor: 10
+              flats: 10
             },
           ]
         },
@@ -142,78 +139,87 @@ function App() {
       entrances: [
         {
           id: 1,
+          label: 'Подъезд 1',
           floors: [
             {
               id: 1,
-              apartmentsPerFloor: 1
+              flats: 1
             },
             {
               id: 2,
-              apartmentsPerFloor: 6
+              flats: 6
             },
             {
               id: 3,
-              apartmentsPerFloor: 7
+              flats: 7
             }
           ]
         },
         {
           id: 2,
+          label: 'Подъезд 2',
           floors: [
             {
               id: 1,
-              apartmentsPerFloor: 11
+              flats: 12
             },
             {
               id: 2,
-              apartmentsPerFloor: 12
-            },
-            {
-              id: 3,
-              apartmentsPerFloor: 13
+              flats: 13
             }
           ]
         },
         {
           id: 3,
+          label: 'Подъезд 3',
           floors: [
             {
               id: 1,
-              apartmentsPerFloor: 9
+              flats: 9
+            },
+            {
+              id: 2,
+              flats: 11
+            },
+            {
+              id: 3,
+              flats: 12
             },
           ]
         },
         {
           id: 4,
+          label: 'Подъезд 4',
           floors: [
             {
               id: 1,
-              apartmentsPerFloor: 7
+              flats: 7
             },
           ]
         },
         {
           id: 5,
+          label: 'Подъезд 5',
           floors: [
             {
               id: 1,
-              apartmentsPerFloor: 3
+              flats: 3
             },
             {
               id: 2,
-              apartmentsPerFloor: 2
+              flats: 2
             },
             {
               id: 3,
-              apartmentsPerFloor: 4
+              flats: 4
             },
             {
               id: 4,
-              apartmentsPerFloor: 7
+              flats: 7
             },
             {
               id: 5,
-              apartmentsPerFloor: 21
+              flats: 21
             },
           ]
         },
