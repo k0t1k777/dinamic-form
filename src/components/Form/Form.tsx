@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { selectForm, setLocalStore } from '../store/features/slice/formReducer';
-import { initialStateForm } from '../const';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { selectForm, setLocalStore } from '../../store/features/slice/formReducer';
+import { initialStateForm } from '../../const';
 
 interface Option {
   title: string;
