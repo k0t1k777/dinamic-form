@@ -46,193 +46,79 @@ function App() {
     },
   ]
 
-  const houses: House[] = [
-    {
-      id: 1,
-      label: 'Хрустальная 38',
-      entrances: [
-        {
-          id: 1,
-          label: 'Подъезд 1',
-          floors: [
-            {
-              id: 1,
-              flats: 3
-            },
-            {
-              id: 2,
-              flats: 4
-            },
-            {
-              id: 3,
-              flats: 5
-            },
-            {
-              id: 4,
-              flats: 9
-            }
-          ]
-        },
-        {
-          id: 2,
-          label: 'Подъезд 2',
-          floors: [
-            {
-              id: 1,
-              flats: 7
-            },
-          ]
-        },
-      ],
-    },
-    {
-      id: 2,
-      label: 'Локомотивная 8',
-      entrances: [
-        {
-          id: 1,
-          label: 'Подъезд 1',
-          floors: [
-            {
-              id: 1,
-              flats: 1
-            },
-            {
-              id: 2,
-              flats: 6
-            },
-            {
-              id: 3,
-              flats: 8
-            }
-          ]
-        },
-        {
-          id: 2,
-          label: 'Подъезд 2',
-          floors: [
-            {
-              id: 1,
-              flats: 2
-            },
-            {
-              id: 2,
-              flats: 3
-            }
-          ]
-        },
-        {
-          id: 3,
-          label: 'Подъезд 3',
-          floors: [
-            {
-              id: 1,
-              flats: 10
-            },
-          ]
-        },
-      ],
-    },
-    {
-      id: 3,
-      label: 'Гончарова 1',
-      entrances: [
-        {
-          id: 1,
-          label: 'Подъезд 1',
-          floors: [
-            {
-              id: 1,
-              flats: 1
-            },
-            {
-              id: 2,
-              flats: 6
-            },
-            {
-              id: 3,
-              flats: 7
-            }
-          ]
-        },
-        {
-          id: 2,
-          label: 'Подъезд 2',
-          floors: [
-            {
-              id: 1,
-              flats: 12
-            },
-            {
-              id: 2,
-              flats: 13
-            }
-          ]
-        },
-        {
-          id: 3,
-          label: 'Подъезд 3',
-          floors: [
-            {
-              id: 1,
-              flats: 9
-            },
-            {
-              id: 2,
-              flats: 11
-            },
-            {
-              id: 3,
-              flats: 12
-            },
-          ]
-        },
-        {
-          id: 4,
-          label: 'Подъезд 4',
-          floors: [
-            {
-              id: 1,
-              flats: 7
-            },
-          ]
-        },
-        {
-          id: 5,
-          label: 'Подъезд 5',
-          floors: [
-            {
-              id: 1,
-              flats: 3
-            },
-            {
-              id: 2,
-              flats: 2
-            },
-            {
-              id: 3,
-              flats: 4
-            },
-            {
-              id: 4,
-              flats: 7
-            },
-            {
-              id: 5,
-              flats: 21
-            },
-          ]
-        },
-      ],
-    },
-  ];
+  const data: House = {
+    title: 'Выберите дом',
+    items: [
+      {
+        label: 'Хрустальная 38',
+        value: 0,
+        title: 'Выберите подъезд',
+        items: [
+          {
+            label: 'Подъезд 1',
+            value: 1,
+            title: 'Выберите этаж',
+            items: [
+              {
+                label: 'Этаж 1',
+                value: 2,
+              },
+              {
+                label: 'Этаж 2',
+                value: 3,
+              },
+              {
+                label: 'Этаж 3',
+                value: 4,
+              }
+            ]
+          },
+          {
+            label: 'Подъезд 2',
+            value: 7,
+            title: 'Выберите этаж',
+            items: [
+              {
+                label: 'Этаж 2',
+                value: 8,
+              },
+              {
+                label: 'Этаж 3',
+                value: 9,
+              }
+            ]
+          },
+        ]
+      },
+      {
+        label: 'Павлова 1',
+        value: 11,
+        title: 'Выберите подъезд',
+        items: [
+          {
+            label: 'Подъезд 1',
+            value: 5,
+            title: 'Выберите этаж',
+            items: [
+              {
+                label: 'Этаж 1',
+                value: 6,
+              },
+            ]
+          },
+        ]
+      }
+    ]
+  }
 
   return (
     <>
       <Form form={form} />
-      <Houses houses={houses} />
+      <Houses data={data} />
     </>
   )
 }
 
 export default App
+
+
