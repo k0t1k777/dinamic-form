@@ -81,8 +81,7 @@ export const Houses: React.FC<SelectProps> = ({ data }) => {
           data={currentItems}
           value={value}
           onChange={(e) => handleSelectChange(level, e.target.value ? Number(e.target.value) : '')}
-        />
-      );
+        />)
     },
     [findSelectedItem, selectedItems, handleSelectChange]
   );
@@ -115,7 +114,7 @@ export const Houses: React.FC<SelectProps> = ({ data }) => {
     <>
       <Button
         onClick={() => setShowSilects(!showSilects)}>
-        {showSilects ? "Скрыть силект" : "Показать силект"}
+        {showSilects ? "Скрыть селект" : "Показать селект"}
       </Button>
       {showSilects && (
         <form className="flex flex-col items-center"
