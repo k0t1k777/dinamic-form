@@ -53,7 +53,6 @@ export const Houses: React.FC<SelectProps> = ({ data }) => {
           }
           return nextLevels;
         });
-
         return newSelectedItems;
       });
     },
