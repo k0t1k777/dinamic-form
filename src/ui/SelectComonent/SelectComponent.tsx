@@ -1,3 +1,5 @@
+import clsx from "clsx";
+
 interface SelectProps {
   data: any[];
   value: string | number | '';
@@ -12,7 +14,9 @@ export const SelectComponent: React.FC<SelectProps> = ({ title, data, value, onC
       <select
         value={value}
         onChange={onChange}
-        className="w-full border border-solid border-gray border-full p-1 cursor-pointer">
+        className={clsx('w-full border border-gray-300 rounded-lg p-3 text-lg bg-white text-gray-700 cursor-pointer transform transition-all duration-300 ease-in-out',
+        'focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50',
+        'hover:border-blue-500 hover:shadow-md')}>
         <option value="" className="w-8">{title ? 'Выберите из списка' : title}</option>
         {data.map((item, index) => (
           <option key={index} value={item.value}>

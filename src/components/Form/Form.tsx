@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { selectForm, setLocalStore, setShowForm } from '../../store/features/slice/formReducer';
-import { initialStateForm } from '../../const';
 import { Button } from '../../ui/Button/Button';
 
 interface Option {
@@ -23,6 +22,7 @@ export interface FormProps {
 }
 
 export const Form: React.FC<FormProps> = ({ form }) => {
+  const [isVisible, setIsVisible] = useState(false);
   const dispatch = useAppDispatch();
   const { localStore, showForm, showSilects } = useAppSelector(selectForm);
 
@@ -41,7 +41,6 @@ export const Form: React.FC<FormProps> = ({ form }) => {
 
   const handleReset = (): void => {
     const resetState: Record<string, string | number | string[]> = {};
-
     form.forEach(field => {
       if (field.type === 'radio') {
         resetState[field.name] = '';
@@ -54,10 +53,15 @@ export const Form: React.FC<FormProps> = ({ form }) => {
 
     dispatch(setLocalStore(resetState));
   };
-
+ 
   useEffect(() => {
-    dispatch(setLocalStore(initialStateForm));
-  }, [dispatch]);
+    if (showForm) {
+      setIsVisible(true);
+    } else {
+      const timer = setTimeout(() => setIsVisible(false), 500);
+      return () => clearTimeout(timer);
+    }
+  }, [showForm]);
 
   return (
     <div>
@@ -68,7 +72,7 @@ export const Form: React.FC<FormProps> = ({ form }) => {
       {showForm && (
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col gap-6">
+          className={`flex flex-col gap-6 items-center transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
           <div className="flex flex-col gap-5">
             {form.map((field, index) => {
               let reactField = null;

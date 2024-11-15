@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { SelectComponent } from "../../ui/SelectComonent/SelectComponent";
 import { Button } from "../../ui/Button/Button";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
@@ -23,8 +23,9 @@ interface SelectProps {
 export const Houses: React.FC<SelectProps> = ({ data }) => {
   const [selectedItems, setSelectedItems] = useState<Record<string, any>>({});
   const [renderedSelects, setRenderedSelects] = useState<number[]>([0]);
-  const dispatch = useAppDispatch();
+  const [isVisible, setIsVisible] = useState(false);
   const { showSilects, showForm } = useAppSelector(selectForm);
+  const dispatch = useAppDispatch();
 
   const findSelectedItem = useCallback(
     (items: Item[], level: number, value: number | ''): Item | undefined => {
@@ -112,6 +113,15 @@ export const Houses: React.FC<SelectProps> = ({ data }) => {
     [renderedSelects, data, renderSelects]
   );
 
+  useEffect(() => {
+    if (showSilects) {
+      setIsVisible(true);
+    } else {
+      const timer = setTimeout(() => setIsVisible(false), 500);
+      return () => clearTimeout(timer);
+    }
+  }, [showSilects]);
+  
   return (
     <>
       {showForm ? '' : <Button
@@ -120,8 +130,8 @@ export const Houses: React.FC<SelectProps> = ({ data }) => {
       </Button>}
 
       {showSilects && (
-        <form className="flex flex-col items-center"
-          onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}
+        className={`flex flex-col items-center transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
           <div className="flex gap-5">
             {selects}
           </div>
