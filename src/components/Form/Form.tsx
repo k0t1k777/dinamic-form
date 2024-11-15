@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { selectForm, setLocalStore } from '../../store/features/slice/formReducer';
+import { selectForm, setLocalStore, setShowForm } from '../../store/features/slice/formReducer';
 import { initialStateForm } from '../../const';
 import { Button } from '../../ui/Button/Button';
 
@@ -23,9 +23,9 @@ export interface FormProps {
 }
 
 export const Form: React.FC<FormProps> = ({ form }) => {
-  const [showFields, setShowFields] = useState(false);
   const dispatch = useAppDispatch();
-  const { localStore } = useAppSelector(selectForm);
+  const { localStore, showForm, showSilects } = useAppSelector(selectForm);
+
   const handleChange = (fieldName: string, value: any) => {
     const newLocalStore = {
       ...localStore,
@@ -61,11 +61,11 @@ export const Form: React.FC<FormProps> = ({ form }) => {
 
   return (
     <div>
-      <Button onClick={() => setShowFields(prev => !prev)}>
-        {showFields ? 'Скрыть поля' : 'Показать поля'}
-      </Button>
+      {showSilects ? '' : <Button onClick={() => dispatch(setShowForm(!showForm))}>
+        {showForm ? 'Скрыть поля' : 'Показать поля'}
+      </Button>}
 
-      {showFields && (
+      {showForm && (
         <form
           onSubmit={handleSubmit}
           className="flex flex-col gap-6">
@@ -94,7 +94,7 @@ export const Form: React.FC<FormProps> = ({ form }) => {
                             }
                             handleChange(field.name, newValues);
                           }}
-                          className="form-checkbox"
+                          className="cursor-pointer"
                         />
                         <span>{option.title}</span>
                       </div>
@@ -113,7 +113,7 @@ export const Form: React.FC<FormProps> = ({ form }) => {
                           value={option.value}
                           checked={localStore[field.name] === option.value}
                           onChange={() => handleChange(field.name, option.value)}
-                          className="form-radio"
+                          className="cursor-pointer"
                         />
                         <span>{option.title}</span>
                       </div>
@@ -130,7 +130,7 @@ export const Form: React.FC<FormProps> = ({ form }) => {
                       max={field.max}
                       value={localStore[field.name] || field.min}
                       onChange={(e) => handleChange(field.name, Number(e.target.value))}
-                      className="w-full"
+                      className="w-full cursor-pointer"
                     />
                   </div>
                 );
@@ -139,8 +139,8 @@ export const Form: React.FC<FormProps> = ({ form }) => {
             })}
           </div>
           <div className="mt-12 flex gap-4 justify-center">
-            <Button children={'Сохранить'} type="submit" />
-            <Button children={'Сбросить'} type="button" onClick={handleReset} />
+            <Button type="submit">Сохранить</Button>
+            <Button onClick={handleReset}>Сбросить</Button>
           </div>
         </form>
       )}

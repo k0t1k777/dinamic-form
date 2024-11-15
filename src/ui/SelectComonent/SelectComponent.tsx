@@ -12,8 +12,7 @@ export const SelectComponent: React.FC<SelectProps> = ({ title, data, value, onC
       <select
         value={value}
         onChange={onChange}
-        className="w-full border border-solid border-gray border-full p-1 "
-      >
+        className="w-full border border-solid border-gray border-full p-1 cursor-pointer">
         <option value="" className="w-8">{title ? 'Выберите из списка' : title}</option>
         {data.map((item, index) => (
           <option key={index} value={item.value}>

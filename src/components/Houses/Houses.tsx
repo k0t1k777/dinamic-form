@@ -1,6 +1,8 @@
 import { useCallback, useMemo, useState } from "react";
 import { SelectComponent } from "../../ui/SelectComonent/SelectComponent";
 import { Button } from "../../ui/Button/Button";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { selectForm, setShowSilects } from "../../store/features/slice/formReducer";
 
 export interface House {
   title: string;
@@ -19,9 +21,10 @@ interface SelectProps {
 }
 
 export const Houses: React.FC<SelectProps> = ({ data }) => {
-  const [showSilects, setShowSilects] = useState(false);
   const [selectedItems, setSelectedItems] = useState<Record<string, any>>({});
   const [renderedSelects, setRenderedSelects] = useState<number[]>([0]);
+  const dispatch = useAppDispatch();
+  const { showSilects, showForm } = useAppSelector(selectForm);
 
   const findSelectedItem = useCallback(
     (items: Item[], level: number, value: number | ''): Item | undefined => {
@@ -105,17 +108,17 @@ export const Houses: React.FC<SelectProps> = ({ data }) => {
     setRenderedSelects([0]);
   };
 
-  const selects = useMemo(
-    () => renderedSelects.map((level) => renderSelects(data, level)),
+  const selects = useMemo(() => renderedSelects.map((level) => renderSelects(data, level)),
     [renderedSelects, data, renderSelects]
   );
 
   return (
     <>
-      <Button
-        onClick={() => setShowSilects(!showSilects)}>
+      {showForm ? '' : <Button
+        onClick={() => dispatch(setShowSilects(!showSilects))}>
         {showSilects ? "Скрыть селект" : "Показать селект"}
-      </Button>
+      </Button>}
+
       {showSilects && (
         <form className="flex flex-col items-center"
           onSubmit={handleSubmit}>
@@ -123,8 +126,8 @@ export const Houses: React.FC<SelectProps> = ({ data }) => {
             {selects}
           </div>
           <div className="mt-12 flex gap-4">
-            <Button children={"Сохранить"} type="submit" />
-            <Button children={"Сбросить"} type="button" onClick={handleReset} />
+            <Button type="submit">Сохранить</Button>
+            <Button onClick={handleReset}>Сбросить</Button>
           </div>
         </form>
       )}
