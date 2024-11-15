@@ -20,7 +20,7 @@ interface SelectProps {
 }
 
 export const Houses: React.FC<SelectProps> = ({ data }) => {
-  const [showFields, setShowFields] = useState(false);
+  const [showSilects, setShowSilects] = useState(false);
   const [selectedItems, setSelectedItems] = useState<Record<string, any>>({});
   const [renderedSelects, setRenderedSelects] = useState<number[]>([0]);
 
@@ -49,7 +49,6 @@ export const Houses: React.FC<SelectProps> = ({ data }) => {
     });
   };
 
-  // Функция для поиска выбранного элемента на определенном уровне
   const findSelectedItem = (items: Item[], level: number, value: number | ''): Item | undefined => {
     for (let item of items) {
       if (item.value === value) return item;
@@ -102,20 +101,19 @@ export const Houses: React.FC<SelectProps> = ({ data }) => {
 
   return (
     <>
-      <button onClick={() => setShowFields((prev) => !prev)} style={{ margin: "0 0 30px 0" }}>
-        {showFields ? "Скрыть силект" : "Показать силект"}
-      </button>
-      {showFields && (
-        <form
-          style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-          onSubmit={handleSubmit}
-        >
-          <div style={{ display: "flex", gap: "20px" }}>
+      <Button
+        onClick={() => setShowSilects(!showSilects)}>
+        {showSilects ? "Скрыть силект" : "Показать силект"}
+      </Button>
+      {showSilects && (
+        <form className="flex flex-col items-center"
+          onSubmit={handleSubmit}>
+          <div className="flex gap-5">
             {renderedSelects.map((level) => renderSelects(data, level))}
           </div>
-          <div style={{ margin: "50px auto", display: "flex", gap: "15px" }}>
-            <Button text={"Сохранить"} type="submit" />
-            <Button text={"Сбросить"} type="button" onClick={handleReset} />
+          <div className="mt-12 flex gap-4">
+            <Button children={"Сохранить"} type="submit" />
+            <Button children={"Сбросить"} type="button" onClick={handleReset} />
           </div>
         </form>
       )}
