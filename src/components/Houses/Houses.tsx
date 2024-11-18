@@ -120,9 +120,8 @@ export const Houses: React.FC<SelectProps> = ({ data }) => {
       </Button>}
 
       <form onSubmit={handleSubmit}
-        className={`flex flex-col gap-6 items-center transition-all duration-500 ease-in-out 
-            ${showSilects ? 'opacity-100 max-h-screen' : 'opacity-0 max-h-0 overflow-hidden'}`}
-        style={{ transition: 'max-height 0.5s ease-in-out, opacity 0.5s ease-in-out' }}>
+       className={`flex flex-col gap-6 items-center transition-all duration-500 ease-in-out
+        ${showSilects ? 'opacity-100 max-h-screen' : 'opacity-0 max-h-0 overflow-hidden'}`}>
         <div className="flex gap-5">
           {selects}
         </div>

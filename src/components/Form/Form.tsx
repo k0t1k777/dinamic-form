@@ -61,9 +61,9 @@ export const Form: React.FC<FormProps> = ({ form }) => {
 
       <form
         onSubmit={handleSubmit}
-        className={`flex flex-col gap-6 items-center transition-all duration-500 ease-in-out 
-          ${showForm ? 'opacity-100 max-h-screen' : 'opacity-0 max-h-0 overflow-hidden'}`}
-        style={{ transition: 'max-height 0.5s ease-in-out, opacity 0.5s ease-in-out' }}>
+        className={`flex flex-col gap-6 items-center transition-all duration-500 ease-in-out
+          ${showForm ? 'opacity-100 max-h-screen' : 'opacity-0 max-h-0 overflow-hidden'}
+        `}>
         <div className="flex flex-col gap-5">
           {form.map((field, index) => {
             let reactField = null;
