@@ -11,7 +11,7 @@ export interface House {
 
 interface Item {
   label: string;
-  value: number;
+  value: number | string;
   title?: string;
   items?: Item[];
 }
