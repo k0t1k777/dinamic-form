@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { SelectComponent } from "../../ui/SelectComonent/SelectComponent";
 import { Button } from "../../ui/Button/Button";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
@@ -28,17 +28,21 @@ export const Houses: React.FC<SelectProps> = ({ data }) => {
 
   const findSelectedItem = useCallback(
     (items: Item[], level: number, value: number | ''): Item | null => {
-      for (let item of items) {
-        if (item.value === value) return item;
-        if (item.items) {
-          const found = findSelectedItem(item.items, level, value);
-          if (found) return found;
-        }
+      const foundItem = items.find(item => item.value === value);
+      if (foundItem) {
+        return foundItem;
       }
-      return null;
+      let foundInChild: Item | null = null;
+      items.forEach(item => {
+        if (item.items && !foundInChild) {
+          foundInChild = findSelectedItem(item.items, level + 1, value);
+        }
+      });
+      return foundInChild || null;
     },
     []
   );
+
 
   const handleSelectChange = useCallback(
     (level: number, value: number | '') => {
@@ -120,7 +124,7 @@ export const Houses: React.FC<SelectProps> = ({ data }) => {
       </Button>}
 
       <form onSubmit={handleSubmit}
-       className={`flex flex-col gap-6 items-center transition-all duration-500 ease-in-out
+        className={`flex flex-col gap-6 items-center transition-all duration-500 ease-in-out
         ${showSilects ? 'opacity-100 max-h-screen' : 'opacity-0 max-h-0 overflow-hidden'}`}>
         <div className="flex gap-5">
           {selects}
