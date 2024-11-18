@@ -121,7 +121,7 @@ export const Houses: React.FC<SelectProps> = ({ data }) => {
       return () => clearTimeout(timer);
     }
   }, [showSilects]);
-  
+
   return (
     <>
       {showForm ? '' : <Button
@@ -131,7 +131,7 @@ export const Houses: React.FC<SelectProps> = ({ data }) => {
 
       {showSilects && (
         <form onSubmit={handleSubmit}
-        className={`flex flex-col items-center transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+          className={`flex flex-col items-center transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
           <div className="flex gap-5">
             {selects}
           </div>
