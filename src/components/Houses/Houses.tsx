@@ -23,12 +23,11 @@ interface SelectProps {
 export const Houses: React.FC<SelectProps> = ({ data }) => {
   const [selectedItems, setSelectedItems] = useState<Record<string, any>>({});
   const [renderedSelects, setRenderedSelects] = useState<number[]>([0]);
-  const [isVisible, setIsVisible] = useState(false);
   const { showSilects, showForm } = useAppSelector(selectForm);
   const dispatch = useAppDispatch();
 
   const findSelectedItem = useCallback(
-    (items: Item[], level: number, value: number | ''): Item | undefined => {
+    (items: Item[], level: number, value: number | ''): Item | null => {
       for (let item of items) {
         if (item.value === value) return item;
         if (item.items) {
@@ -36,7 +35,7 @@ export const Houses: React.FC<SelectProps> = ({ data }) => {
           if (found) return found;
         }
       }
-      return undefined;
+      return null;
     },
     []
   );
@@ -113,15 +112,6 @@ export const Houses: React.FC<SelectProps> = ({ data }) => {
     [renderedSelects, data, renderSelects]
   );
 
-  useEffect(() => {
-    if (showSilects) {
-      setIsVisible(true);
-    } else {
-      const timer = setTimeout(() => setIsVisible(false), 500);
-      return () => clearTimeout(timer);
-    }
-  }, [showSilects]);
-
   return (
     <>
       {showForm ? '' : <Button
@@ -129,18 +119,18 @@ export const Houses: React.FC<SelectProps> = ({ data }) => {
         {showSilects ? "Скрыть селект" : "Показать селект"}
       </Button>}
 
-      {showSilects && (
-        <form onSubmit={handleSubmit}
-          className={`flex flex-col items-center transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-          <div className="flex gap-5">
-            {selects}
-          </div>
-          <div className="mt-12 flex gap-4">
-            <Button type="submit">Сохранить</Button>
-            <Button onClick={handleReset}>Сбросить</Button>
-          </div>
-        </form>
-      )}
+      <form onSubmit={handleSubmit}
+        className={`flex flex-col gap-6 items-center transition-all duration-500 ease-in-out 
+            ${showSilects ? 'opacity-100 max-h-screen' : 'opacity-0 max-h-0 overflow-hidden'}`}
+        style={{ transition: 'max-height 0.5s ease-in-out, opacity 0.5s ease-in-out' }}>
+        <div className="flex gap-5">
+          {selects}
+        </div>
+        <div className="mt-12 flex gap-4">
+          <Button type="submit">Сохранить</Button>
+          <Button onClick={handleReset}>Сбросить</Button>
+        </div>
+      </form>
     </>
   );
 };

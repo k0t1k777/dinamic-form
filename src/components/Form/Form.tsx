@@ -22,7 +22,6 @@ export interface FormProps {
 }
 
 export const Form: React.FC<FormProps> = ({ form }) => {
-  const [isVisible, setIsVisible] = useState(false);
   const dispatch = useAppDispatch();
   const { localStore, showForm, showSilects } = useAppSelector(selectForm);
 
@@ -53,15 +52,6 @@ export const Form: React.FC<FormProps> = ({ form }) => {
 
     dispatch(setLocalStore(resetState));
   };
- 
-  useEffect(() => {
-    if (showForm) {
-      setIsVisible(true);
-    } else {
-      const timer = setTimeout(() => setIsVisible(false), 500);
-      return () => clearTimeout(timer);
-    }
-  }, [showForm]);
 
   return (
     <div>
@@ -69,85 +59,85 @@ export const Form: React.FC<FormProps> = ({ form }) => {
         {showForm ? 'Скрыть поля' : 'Показать поля'}
       </Button>}
 
-      {showForm && (
-        <form
-          onSubmit={handleSubmit}
-          className={`flex flex-col gap-6 items-center transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-          <div className="flex flex-col gap-5">
-            {form.map((field, index) => {
-              let reactField = null;
-              if (field.type === 'checkbox' && field.options) {
-                reactField = (
-                  <div key={index}>
-                    <label className="block">{field.label}</label>
-                    {field.options.map((option) => (
-                      <div key={option.value} className="flex items-center gap-2">
-                        <input
-                          type="checkbox"
-                          value={option.value}
-                          checked={localStore[field.name]?.includes(option.value) || false}
-                          onChange={(e) => {
-                            const newValues = [...(localStore[field.name] || [])];
-                            if (e.target.checked) {
-                              newValues.push(option.value);
-                            } else {
-                              const optionIndex = newValues.indexOf(option.value);
-                              if (optionIndex > -1) {
-                                newValues.splice(optionIndex, 1);
-                              }
+      <form
+        onSubmit={handleSubmit}
+        className={`flex flex-col gap-6 items-center transition-all duration-500 ease-in-out 
+          ${showForm ? 'opacity-100 max-h-screen' : 'opacity-0 max-h-0 overflow-hidden'}`}
+        style={{ transition: 'max-height 0.5s ease-in-out, opacity 0.5s ease-in-out' }}>
+        <div className="flex flex-col gap-5">
+          {form.map((field, index) => {
+            let reactField = null;
+            if (field.type === 'checkbox' && field.options) {
+              reactField = (
+                <div key={index}>
+                  <label className="block">{field.label}</label>
+                  {field.options.map((option) => (
+                    <div key={option.value} className="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        value={option.value}
+                        checked={localStore[field.name]?.includes(option.value) || false}
+                        onChange={(e) => {
+                          const newValues = [...(localStore[field.name] || [])];
+                          if (e.target.checked) {
+                            newValues.push(option.value);
+                          } else {
+                            const optionIndex = newValues.indexOf(option.value);
+                            if (optionIndex > -1) {
+                              newValues.splice(optionIndex, 1);
                             }
-                            handleChange(field.name, newValues);
-                          }}
-                          className="cursor-pointer"
-                        />
-                        <span>{option.title}</span>
-                      </div>
-                    ))}
-                  </div>
-                );
-              } else if (field.type === 'radio' && field.options) {
-                reactField = (
-                  <div key={index}>
-                    <label className="block">{field.label}</label>
-                    {field.options.map((option) => (
-                      <div key={option.value} className="flex items-center gap-2">
-                        <input
-                          type="radio"
-                          name={field.name}
-                          value={option.value}
-                          checked={localStore[field.name] === option.value}
-                          onChange={() => handleChange(field.name, option.value)}
-                          className="cursor-pointer"
-                        />
-                        <span>{option.title}</span>
-                      </div>
-                    ))}
-                  </div>
-                );
-              } else if (field.type === 'range') {
-                reactField = (
-                  <div key={index} className="flex gap-5">
-                    <label className="block">{field.label}</label>
-                    <input
-                      type="range"
-                      min={field.min}
-                      max={field.max}
-                      value={localStore[field.name] || field.min}
-                      onChange={(e) => handleChange(field.name, Number(e.target.value))}
-                      className="w-full cursor-pointer"
-                    />
-                  </div>
-                );
-              }
-              return reactField;
-            })}
-          </div>
-          <div className="mt-12 flex gap-4 justify-center">
-            <Button type="submit">Сохранить</Button>
-            <Button onClick={handleReset}>Сбросить</Button>
-          </div>
-        </form>
-      )}
+                          }
+                          handleChange(field.name, newValues);
+                        }}
+                        className="cursor-pointer"
+                      />
+                      <span>{option.title}</span>
+                    </div>
+                  ))}
+                </div>
+              );
+            } else if (field.type === 'radio' && field.options) {
+              reactField = (
+                <div key={index}>
+                  <label className="block">{field.label}</label>
+                  {field.options.map((option) => (
+                    <div key={option.value} className="flex items-center gap-2">
+                      <input
+                        type="radio"
+                        name={field.name}
+                        value={option.value}
+                        checked={localStore[field.name] === option.value}
+                        onChange={() => handleChange(field.name, option.value)}
+                        className="cursor-pointer"
+                      />
+                      <span>{option.title}</span>
+                    </div>
+                  ))}
+                </div>
+              );
+            } else if (field.type === 'range') {
+              reactField = (
+                <div key={index} className="flex gap-5">
+                  <label className="block">{field.label}</label>
+                  <input
+                    type="range"
+                    min={field.min}
+                    max={field.max}
+                    value={localStore[field.name] || field.min}
+                    onChange={(e) => handleChange(field.name, Number(e.target.value))}
+                    className="w-full cursor-pointer"
+                  />
+                </div>
+              );
+            }
+            return reactField;
+          })}
+        </div>
+        <div className="mt-12 flex gap-4 justify-center">
+          <Button type="submit">Сохранить</Button>
+          <Button onClick={handleReset}>Сбросить</Button>
+        </div>
+      </form>
     </div>
   );
 };
