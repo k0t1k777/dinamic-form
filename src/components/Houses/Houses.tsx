@@ -21,14 +21,14 @@ interface SelectProps {
 }
 
 export const Houses: React.FC<SelectProps> = ({ data }) => {
-  const [selectedItems, setSelectedItems] = useState<Record<string, any>>({});
+  const [selectedItems, setSelectedItems] = useState<Record<string, number>>({});
   const [renderedSelects, setRenderedSelects] = useState<number[]>([0]);
   const { showSilects, showForm } = useAppSelector(selectForm);
   const dispatch = useAppDispatch();
-
+  
   const findSelectedItem = useCallback(
-    (items: Item[], level: number, value: number | ''): Item | null => {
-      const foundItem = items.find(item => item.value === value);
+    (items: Item[], level: number, value: number | string): Item | null => {
+      const foundItem = items.find(item => String(item.value) === String(value));
       if (foundItem) {
         return foundItem;
       }
@@ -45,7 +45,7 @@ export const Houses: React.FC<SelectProps> = ({ data }) => {
 
 
   const handleSelectChange = useCallback(
-    (level: number, value: number | '') => {
+    (level: number, value: number | string) => {
       setSelectedItems((prev) => {
         const newSelectedItems = { ...prev, [level]: value };
         const selectedItem = findSelectedItem(data.items, level, value);
@@ -87,7 +87,7 @@ export const Houses: React.FC<SelectProps> = ({ data }) => {
           title={title}
           data={currentItems}
           value={value}
-          onChange={(e) => handleSelectChange(level, e.target.value ? Number(e.target.value) : '')}
+          onChange={(e) => handleSelectChange(level, e.target.value ? e.target.value : '')}
         />)
     },
     [findSelectedItem, selectedItems, handleSelectChange]
@@ -97,7 +97,7 @@ export const Houses: React.FC<SelectProps> = ({ data }) => {
     event.preventDefault();
     const selectedLabels = Object.keys(selectedItems).map((level) => {
       const selectedValue = selectedItems[level];
-      if (selectedValue !== undefined && selectedValue !== '') {
+      if (selectedValue !== undefined && selectedValue !== null) {
         const selectedItem = findSelectedItem(data.items, parseInt(level), selectedValue);
         return selectedItem ? selectedItem.label : null;
       }

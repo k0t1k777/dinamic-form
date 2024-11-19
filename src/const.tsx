@@ -171,7 +171,7 @@ export const data: House = {
       items: [
         {
           label: 'Подъезд 1',
-          value: 125,
+          value: '125',
           title: 'Выберите этаж',
           items: [
             {
