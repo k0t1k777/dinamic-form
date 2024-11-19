@@ -21,11 +21,11 @@ interface SelectProps {
 }
 
 export const Houses: React.FC<SelectProps> = ({ data }) => {
-  const [selectedItems, setSelectedItems] = useState<Record<string, number>>({});
+  const [selectedItems, setSelectedItems] = useState<Record<string, number | string>>({});
   const [renderedSelects, setRenderedSelects] = useState<number[]>([0]);
   const { showSilects, showForm } = useAppSelector(selectForm);
   const dispatch = useAppDispatch();
-  
+
   const findSelectedItem = useCallback(
     (items: Item[], level: number, value: number | string): Item | null => {
       const foundItem = items.find(item => String(item.value) === String(value));
@@ -86,24 +86,20 @@ export const Houses: React.FC<SelectProps> = ({ data }) => {
           title={title}
           data={currentItems}
           value={value}
-          onChange={(e) => handleSelectChange(level, e.target.value ? e.target.value : '')}
-        />)
+          onChange={(e) => handleSelectChange(level, e.target.value ? e.target.value : '')} />)
     },
     [findSelectedItem, selectedItems, handleSelectChange]
   );
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    const selectedLabels = Object.keys(selectedItems).map((level) => {
-      const selectedValue = selectedItems[level];
-      if (selectedValue !== undefined && selectedValue !== null) {
-        const selectedItem = findSelectedItem(data.items, parseInt(level), selectedValue);
-        return selectedItem ? selectedItem.label : null;
-      }
-      return null;
-    }).filter(label => label !== null);
-    alert(selectedLabels);
-    handleReset()
+    const selectedData = Object.keys(selectedItems).map((level) => {
+      const value = selectedItems[level];
+      const selectedItem = findSelectedItem(data.items, parseInt(level), value);
+      return selectedItem ? { label: selectedItem.label, value: selectedItem.value } : null;
+    }).filter(item => item !== null);
+    console.log("Сохранено", selectedData);
+    handleReset();
   };
 
   const handleReset = () => {
@@ -117,10 +113,11 @@ export const Houses: React.FC<SelectProps> = ({ data }) => {
 
   return (
     <>
-      {showForm ? '' : <Button
-        onClick={() => dispatch(setShowSilects(!showSilects))}>
-        {showSilects ? "Скрыть селект" : "Показать селект"}
-      </Button>}
+      {showForm ? '' : (
+        <Button onClick={() => dispatch(setShowSilects(!showSilects))}>
+          {showSilects ? "Скрыть селект" : "Показать селект"}
+        </Button>
+      )}
 
       <form onSubmit={handleSubmit}
         className={`flex flex-col gap-6 items-center transition-all duration-500 ease-in-out

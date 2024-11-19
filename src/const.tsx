@@ -65,53 +65,53 @@ export const data: House = {
               items: [
                 {
                   label: 'Квартира 1',
-                  value: 2,
-                },
-                {
-                  label: 'Квартира 2',
                   value: 3,
                 },
                 {
-                  label: 'Квартира 3',
+                  label: 'Квартира 2',
                   value: 4,
+                },
+                {
+                  label: 'Квартира 3',
+                  value: 5,
                 }
               ]
             },
             {
               label: 'Этаж 2',
-              value: 3,
+              value: 6,
               title: 'Выберите квартиру',
               items: [
                 {
                   label: 'Квартира 4',
-                  value: 2,
+                  value: 7,
                 },
                 {
                   label: 'Квартира 5',
-                  value: 3,
+                  value: 8,
                 },
                 {
                   label: 'Квартира 6',
-                  value: 4,
+                  value: 9,
                 }
               ]
             },
             {
               label: 'Этаж 3',
-              value: 4,
+              value: 11,
               title: 'Выберите квартиру',
               items: [
                 {
                   label: 'Квартира 7',
-                  value: 2,
+                  value: 12,
                 },
                 {
                   label: 'Квартира 8',
-                  value: 3,
+                  value: 13,
                 },
                 {
                   label: 'Квартира 9',
-                  value: 4,
+                  value: 14,
                 }
               ]
             }
@@ -119,44 +119,44 @@ export const data: House = {
         },
         {
           label: 'Подъезд 2',
-          value: 7,
+          value: 15,
           title: 'Выберите этаж',
           items: [
             {
               label: 'Этаж 2',
-              value: 8,
+              value: 18,
               title: 'Выберите квартиру',
               items: [
                 {
                   label: 'Квартира 10',
-                  value: 2,
+                  value: 19,
                 },
                 {
                   label: 'Квартира 11',
-                  value: 3,
+                  value: 20,
                 },
                 {
                   label: 'Квартира 12',
-                  value: 4,
+                  value: 21,
                 }
               ]
             },
             {
               label: 'Этаж 3',
-              value: 9,
+              value: 22,
               title: 'Выберите квартиру',
               items: [
                 {
                   label: 'Квартира 13',
-                  value: 2,
+                  value: 23,
                 },
                 {
                   label: 'Квартира 14',
-                  value: 3,
+                  value: 24,
                 },
                 {
                   label: 'Квартира 15',
-                  value: 4,
+                  value: 25,
                 }
               ]
             }
@@ -166,22 +166,22 @@ export const data: House = {
     },
     {
       label: 'Павлова 1',
-      value: 11,
+      value: 26,
       title: 'Выберите подъезд',
       items: [
         {
           label: 'Подъезд 1',
-          value: '125',
+          value: '27',
           title: 'Выберите этаж',
           items: [
             {
               label: 'Этаж 1',
-              value: 126,
+              value: 28,
               title: 'Выберите квартру',
               items: [
                 {
                   label: 'Квартира 999',
-                  value: 999,
+                  value: 29,
                 },
               ]
             },
