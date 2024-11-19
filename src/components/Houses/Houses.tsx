@@ -43,7 +43,6 @@ export const Houses: React.FC<SelectProps> = ({ data }) => {
     []
   );
 
-
   const handleSelectChange = useCallback(
     (level: number, value: number | string) => {
       setSelectedItems((prev) => {
